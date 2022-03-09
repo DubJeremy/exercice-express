@@ -7,5 +7,23 @@ router.post(
     '/create', 
     wilderValidation.create, 
     wilderCtrl.create);
+router.get(
+    '/readAll', 
+    wilderCtrl.readAll);
+router.get(
+    '/readOne/:id', 
+    wilderCtrl.readOne);
+// router.put(
+//     '/update/:id',
+//     wilderCtrl.update);
+router.put(
+    '/update',
+    wilderCtrl.update);
+// router.delete(
+//     '/delete/:id',
+//     wilderCtrl.delete);
+router.delete(
+    '/delete',
+    wilderCtrl.delete);
 
 export default router;

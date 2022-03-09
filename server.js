@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import wilderRoutes from './routes/wilderRoutes';
 
 dotenv.config();
+const PORT = process.env.PORT || PORT;
 
 mongoose
 .connect(
@@ -17,6 +18,7 @@ mongoose
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch((err) => console.log(err));
 
+
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -24,4 +26,4 @@ app.use(express.json());
   
 app.use('/api/wilder', wilderRoutes);
     
-app.listen(3000, () => console.log("Seveur lancé sur le port 3000"));
+app.listen(PORT, () => console.log(`Seveur lancé sur le port ${PORT}`));
