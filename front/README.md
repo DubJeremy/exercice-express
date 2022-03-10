@@ -1,0 +1,4 @@
+gitignore [
+    /src/assets/images
+    
+]
