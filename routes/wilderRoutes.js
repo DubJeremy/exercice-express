@@ -11,7 +11,7 @@ router.get(
     '/readAll', 
     wilderCtrl.readAll);
 router.get(
-    '/readOne/:id', 
+    '/readOne', 
     wilderCtrl.readOne);
 // router.put(
 //     '/update/:id',

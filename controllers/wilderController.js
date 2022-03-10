@@ -61,21 +61,23 @@ const methods = {
     //       .then(wilder => res.status(200).json(( wilder )))
     //       .catch(error => res.status(400).json({ error }));
     // },
-    readOne : (req, res, next) => {
-        const {_id} = req.params;
-        Wilder.findOne({_id})
-            .then((result) => {
-                if (!result) {
-                   return res.json({
-                       success: false, 
-                       result: result})
-                }
-                res.json
-            })
-            .catch((err) => {
-                console.log(err)
-        })
-    },
+    readOne :  (req, res) => {
+        const { _id } = req.body;
+        Wilder.findOne({ _id })
+          .then((result) => {
+            console.log(result);
+            if (!result) {
+              return res.json({
+                success: false,
+                result: "Cet identifiant n'existe pas",
+              });
+            }
+            res.json({ success: true, result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
     // update : (req, res, next) => {
     //     Wilder.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
     //       .then(() => res.status(200).json({ message: 'Wilder modifié !'}))
