@@ -13,7 +13,7 @@ const methods = {
         Wilder
         .init()
         .then(() => {
-            const wilder = new Wilders({
+            const wilder = new Wilder({
                 name,
                 city,
                 skills
@@ -41,7 +41,7 @@ const methods = {
         // next();
     },
     // readAll : (req, res, next) => {
-    //     Wilders.find()
+    //     Wilder.find()
     //       .then(wilders => res.status(200).json(( wilders )))
     //       .catch(error => res.status(400).json({ error }));
     // },
