@@ -62,28 +62,63 @@ const methods = {
     //       .catch(error => res.status(400).json({ error }));
     // },
     readOne : (req, res, next) => {
-        const {_id} = req.params;
-        Wilder.findOne({_id})
-            .then((result) => {
-                if (!result) {
-                   return res.json({
-                       success: false, 
-                       result: result})
-                }
-                res.json
-            })
-            .catch((err) => {
-                console.log(err)
-        })
-    },
+        const { _id } = req.body;
+        Wilder.findOne({ _id })
+          .then((result) => {
+            if (!result) {
+              return res.json({
+                success: false,
+                result: "Cet identifiant n'existe pas",
+              });
+            }
+            res.json({ success: true, result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
     // update : (req, res, next) => {
     //     Wilder.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
     //       .then(() => res.status(200).json({ message: 'Wilder modifié !'}))
     //       .catch(error => res.status(400).json({ error }));
     // },
     update : (req, res, next) => {
-        const {_id, name, city, skills} = req.body;
-        Wilder.updateOne({_id}, {name, city, skills})
+        const {_id, name, city} = req.body;
+        Wilder.updateOne({_id}, {name, city})
+            .then((result) => {
+                console.log("SUCCESS", result);
+                if (result.matchedCount === 0) {
+                    return res.json({
+                        success: false,
+                        result: 'ID n\'existe pas',
+                    });
+                }
+                res.json({success: true, result});
+            })
+            .catch((err) => {
+                res.json({ success: false, result: listErrors(err)});
+            });
+    },
+    addSkills : (req, res, next) => {
+        const {_id, skills} = req.body;
+        Wilder.updateOne({_id}, {$addToSet: {skills: skills}})
+            .then((result) => {
+                console.log("SUCCESS", result);
+                if (result.matchedCount === 0) {
+                    return res.json({
+                        success: false,
+                        result: 'ID n\'existe pas',
+                    });
+                }
+                res.json({success: true, result});
+            })
+            .catch((err) => {
+                res.json({ success: false, result: listErrors(err)});
+            });
+    },
+    updateSkills : (req, res, next) => {
+        const {_id, title, votes} = req.params;
+        Wilder.skills.updateOne({_id}, {_id, title , votes})
             .then((result) => {
                 console.log("SUCCESS", result);
                 if (result.matchedCount === 0) {

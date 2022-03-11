@@ -1,0 +1,13 @@
+#header
+{
+    height: 100px;
+    background-color: $WildOrange;
+    @include flex;
+
+    h1 
+    {
+        width: 200px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}

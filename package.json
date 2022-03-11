@@ -2,10 +2,13 @@
   "name": "exercice-express",
   "type": "module",
   "version": "1.0.0",
+  "proxy": "http://localhost:5000",
   "description": "1er exo",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --experimental-specifier-resolution=node server.js",
+    "client": "npm --prefix ./front run start",
+    "server": "nodemon --experimental-specifier-resolution=node server.js",
+    "dev": "concurrently -c \"bgBlue.bold, bgMagenta.bold\" \"npm run server\" \"npm run client\"", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dub",

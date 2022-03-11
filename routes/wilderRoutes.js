@@ -11,7 +11,7 @@ router.get(
     '/readAll', 
     wilderCtrl.readAll);
 router.get(
-    '/readOne/:id', 
+    '/readOne', 
     wilderCtrl.readOne);
 // router.put(
 //     '/update/:id',
@@ -19,6 +19,12 @@ router.get(
 router.put(
     '/update',
     wilderCtrl.update);
+router.put(
+    '/addSkills',
+    wilderCtrl.addSkills);
+router.put(
+    '/updateSkills',
+    wilderCtrl.updateSkills);
 // router.delete(
 //     '/delete/:id',
 //     wilderCtrl.delete);
