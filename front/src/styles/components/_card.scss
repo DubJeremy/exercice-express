@@ -6,6 +6,8 @@
     border-radius: 10px;
     margin-top: 30px;
     margin-left: min(30px);
+    position: relative;
+    transition: all 0.3s ease-out;
     
     img:first-child
     {
@@ -52,13 +54,40 @@
             // width: max(50%)
         }
     }
-    img:last-child
+    img:nth-child(3)
     {
         position: relative;
         bottom: 0px;
         height:20px;
         margin-top: 10px;
         padding-bottom: 10px;
-        left: 110px;
+        right: 110px;
+    }
+    .trash 
+    {
+        display: none;
+    }
+    
+    &:hover
+    {
+        box-shadow: 0px 8px 16px 3px rgba( #000, .6 );
+        transform: translateY( -3px ), scale( 1.05 ) ,rotateX( 15deg);
+        
+        .trash
+        {
+            transition: all 0.3s ease-out;
+            display: block;
+            border: none;
+            position: absolute;
+            right: 15px;
+            bottom: 10px;
+
+            &:hover
+                {
+                    
+                    cursor: pointer;
+                }
+            &:focus {outline: none}
+        }
     }
 }

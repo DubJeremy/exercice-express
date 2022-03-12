@@ -18,7 +18,10 @@ const Card = ({ id, name, city, skills }) => {
                     )
                 })}
             </ul>
-        <img src="./assets/images/WCS.png" alt="WCS logo" />
+            <img src="./assets/images/WCS.png" alt="WCS logo" />
+            <button class="trash">
+                <i class="fas fa-trash-alt"></i>  
+            </button>
         </div>
     )
 };
