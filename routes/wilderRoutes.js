@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
-import wilderCtrl from '../controllers/wilderController';
-import { wilderValidation } from "../validations";
+import wilderCtrl from '../controllers/wilderController.js';
+import { wilderValidation } from "../validations/index.js";
 
 router.post(
     '/create', 
@@ -22,9 +22,9 @@ router.put(
 router.put(
     '/addSkills',
     wilderCtrl.addSkills);
-router.put(
-    '/updateSkills',
-    wilderCtrl.updateSkills);
+// router.put(
+//     '/updateSkills',
+//     wilderCtrl.updateSkills);
 // router.delete(
 //     '/delete/:id',
 //     wilderCtrl.delete);

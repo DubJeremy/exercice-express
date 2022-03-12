@@ -11,13 +11,14 @@ const Card = ({ id, name, city, skills }) => {
                 </li>
                 {skills.map((skill) => {
                     return (
-                        <div className="skills">
-                            <p key={skill._id} className="desc">{skill.title} :</p>
-                            <p key={skill._id} className="note">{skill.votes}<span className="desc">/10</span></p>
+                        <div className="skills" key={skill._id}>
+                            <p className="desc">{skill.title} :</p>
+                            <p className="note">{skill.votes}<span className="desc">/10</span></p>
                         </div>
                     )
                 })}
             </ul>
+        <img src="./assets/images/WCS.png" alt="WCS logo" />
         </div>
     )
 };

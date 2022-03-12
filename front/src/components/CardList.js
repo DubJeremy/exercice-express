@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import { wildersRequest } from "../requests/wilders";
+import { wildersRequest } from "../requests/wilders.js";
 
 const CardList = () => {
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const CardList = () => {
               setWilders(
                 wildersData.data.result.map(({_id, name, city, skills}) => {
                   return (
-                      <Card key={_id} id={_id} name={name} city={city} skills={skills} />
+                      <Card key={_id}  name={name} city={city} skills={skills} />
                   )
                 })
               )

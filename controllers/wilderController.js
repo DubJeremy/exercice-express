@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
-import Wilder from "../models/Wilders";
-import { listErrors } from "../utilities/tools"
+import Wilder from "../models/Wilders.js";
+import { listErrors } from "../utilities/tools.js"
 
 
 const methods = {
@@ -18,7 +18,6 @@ const methods = {
                 city,
                 skills
             });
-
             const errorsValidator = validationResult(req)
             if (!errorsValidator.isEmpty()) {
                 return res.status(422).json({ errors: errorsValidator.array() })
@@ -46,8 +45,6 @@ const methods = {
     //       .catch(error => res.status(400).json({ error }));
     // },
     readAll : (req, res, next) => {
-        let result = [];
-
         Wilder.find()
             .then((result) => {
             res.json({success: true, result: result})
@@ -116,23 +113,23 @@ const methods = {
                 res.json({ success: false, result: listErrors(err)});
             });
     },
-    updateSkills : (req, res, next) => {
-        const {_id, title, votes} = req.params;
-        Wilder.skills.updateOne({_id}, {_id, title , votes})
-            .then((result) => {
-                console.log("SUCCESS", result);
-                if (result.matchedCount === 0) {
-                    return res.json({
-                        success: false,
-                        result: 'ID n\'existe pas',
-                    });
-                }
-                res.json({success: true, result});
-            })
-            .catch((err) => {
-                res.json({ success: false, result: listErrors(err)});
-            });
-    },
+    // updateSkills : (req, res, next) => {
+    //     const {_id, title, votes} = req.params;
+    //     Wilder.skills.updateOne({_id}, {_id, title , votes})
+    //         .then((result) => {
+    //             console.log("SUCCESS", result);
+    //             if (result.matchedCount === 0) {
+    //                 return res.json({
+    //                     success: false,
+    //                     result: 'ID n\'existe pas',
+    //                 });
+    //             }
+    //             res.json({success: true, result});
+    //         })
+    //         .catch((err) => {
+    //             res.json({ success: false, result: listErrors(err)});
+    //         });
+    // },
     // delete : (req, res, next) => {
     //     Wilder.deleteOne({ _id: req.params.id })
     //         .then(() => res.status(200).json({ message: "Wilder supprimé !"}))

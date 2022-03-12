@@ -3,7 +3,7 @@ import express from "express"; //ES6
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import wilderRoutes from './routes/wilderRoutes';
+import wilderRoutes from './routes/wilderRoutes.js';
 
 dotenv.config();
 const PORT = process.env.PORT || PORT;

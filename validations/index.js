@@ -1,1 +1,1 @@
-export * as wilderValidation from "./wilderValidation";
+export * as wilderValidation from "./wilderValidation.js";
