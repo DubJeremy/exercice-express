@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import { wildersRequest } from "../requests/wilders.js";
+import FormAddWilder from '../pages/FormAddWilder';
 
 const CardList = () => {
   const [loading, setLoading] = useState(true);
@@ -46,8 +47,15 @@ const CardList = () => {
         }, 2000);
       }, []);
 
-    return <div className="cardList">{loading ? <div className="loading">Chargement en cours</div> : wilders}</div>;
-    // (
+    return (
+      <>
+        {/* <FormAddWilder /> */}
+        <div className="cardList">
+          {loading ? <div className="loading">Chargement en cours</div> : wilders}
+        </div>
+      </>
+      )
+      // (
       //   <div>
       //       {wilders.map(({ _id, name , city, skills}) => {
       //           return <Card key={_id} id={_id} name={name} city={city}/>; // équivalent à Card({id: _id, name: name})

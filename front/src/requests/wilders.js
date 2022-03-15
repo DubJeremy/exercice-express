@@ -5,5 +5,10 @@ export const wildersRequest = {
     axios
       .get("/api/wilder/readAll")
       .then((res) => res)
-      .catch((err) => err)
+      .catch((err) => err),
+  create: (data) =>
+    axios
+      .post(`/api/wilder/create`, data)
+      .then((res) => res)
+      .catch((err) => err),
 };

@@ -4,8 +4,8 @@
     margin-right: auto;
     padding-right: 30px;
     padding-bottom: 30px;
-    width: 60%;
-    @include flex($dir: row);
+    width: 80%;
+    @include flex($align: start , $dir: row);
 }
 .loading
 {

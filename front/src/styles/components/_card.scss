@@ -2,7 +2,7 @@
 {
     width: 300px;
     @include flex;
-    border: 1px solid black;
+    border: 2px solid rgb(151, 151, 151);
     border-radius: 10px;
     margin-top: 30px;
     margin-left: min(30px);
@@ -12,7 +12,6 @@
     img:first-child
     {
         width:250px;
-        border: 1px solid black;
         margin-top: 20px;
     }
     ul 
@@ -29,6 +28,7 @@
         .desc
         {
             font-weight: bold;
+            color: $WildOrange;
         }
     }
     .skills
@@ -54,7 +54,13 @@
             // width: max(50%)
         }
     }
-    img:nth-child(3)
+    >p      
+    {
+        padding: 10px 20px 0px 20px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+    img:nth-child(5)
     {
         position: relative;
         bottom: 0px;
@@ -66,6 +72,7 @@
     .trash 
     {
         display: none;
+        font-size: 1.1em;
     }
     
     &:hover

@@ -80,8 +80,8 @@ const methods = {
     //       .catch(error => res.status(400).json({ error }));
     // },
     update : (req, res, next) => {
-        const {_id, name, city} = req.body;
-        Wilder.updateOne({_id}, {name, city})
+        const {_id, name, city, skills} = req.body;
+        Wilder.updateOne({_id}, {name, city, skills})
             .then((result) => {
                 console.log("SUCCESS", result);
                 if (result.matchedCount === 0) {

@@ -9,6 +9,11 @@ const Card = ({ id, name, city, skills }) => {
                 <li>
                     <span className="desc">Ville :</span> {city}
                 </li>
+            </ul>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore doloremque a, excepturi quis consectetur cupiditate quas? Ea vitae amet sit optio labore esse nostrum praesentium recusandae in, vel corrupti quo!
+            </p>
+            <ul>
                 {skills.map((skill) => {
                     return (
                         <div className="skills" key={skill._id}>
@@ -19,8 +24,8 @@ const Card = ({ id, name, city, skills }) => {
                 })}
             </ul>
             <img src="./assets/images/WCS.png" alt="WCS logo" />
-            <button class="trash">
-                <i class="fas fa-trash-alt"></i>  
+            <button className="trash">
+                <i className="fas fa-trash-alt"></i>  
             </button>
         </div>
     )
