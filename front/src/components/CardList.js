@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import { wildersRequest } from "../requests/wilders.js";
-import FormAddWilder from '../pages/FormAddWilder';
+// import FormAddWilder from '../pages/FormAddWilder';
 
 const CardList = () => {
   const [loading, setLoading] = useState(true);
@@ -25,13 +25,13 @@ const CardList = () => {
               setWilders(
                 wildersData.data.result.map(({_id, name, city, skills}) => {
                   return (
-                      <Card key={_id}  name={name} city={city} skills={skills} />
+                      <Card key={_id} id={_id} name={name} city={city} skills={skills} />
                   )
                 })
               )
             } else
             {
-              setWilders(<div className="noResult">Aucun résultats</div>);
+              setWilders(<div>Aucun résultats</div>);
             }
           } catch (err) 
           {
@@ -39,29 +39,20 @@ const CardList = () => {
           } finally
           {
             setLoading(false);
-
           }
         };
         setTimeout(() => {
             recupData();
-        }, 2000);
+        }, 500);
       }, []);
 
     return (
       <>
-        {/* <FormAddWilder /> */}
         <div className="cardList">
           {loading ? <div className="loading">Chargement en cours</div> : wilders}
         </div>
       </>
-      )
-      // (
-      //   <div>
-      //       {wilders.map(({ _id, name , city, skills}) => {
-      //           return <Card key={_id} id={_id} name={name} city={city}/>; // équivalent à Card({id: _id, name: name})
-      // })}
-      //   </div>
-    // );
+    )
 };
 
 export default CardList;

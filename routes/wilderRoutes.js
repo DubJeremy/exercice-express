@@ -11,7 +11,7 @@ router.get(
     '/readAll', 
     wilderCtrl.readAll);
 router.get(
-    '/readOne', 
+    '/readOne/:_id', 
     wilderCtrl.readOne);
 // router.put(
 //     '/update/:id',
@@ -29,7 +29,7 @@ router.put(
 //     '/delete/:id',
 //     wilderCtrl.delete);
 router.delete(
-    '/delete',
+    '/delete/:_id',
     wilderCtrl.delete);
 
 export default router;

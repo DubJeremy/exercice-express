@@ -58,8 +58,8 @@ const methods = {
     //       .then(wilder => res.status(200).json(( wilder )))
     //       .catch(error => res.status(400).json({ error }));
     // },
-    readOne : (req, res, next) => {
-        const { _id } = req.body;
+    readOne : (req, res) => {
+        const { _id } = req.params;
         Wilder.findOne({ _id })
           .then((result) => {
             if (!result) {
@@ -136,7 +136,7 @@ const methods = {
     //         .catch(error => res.status(404).json({ error }));
     // },
     delete : (req, res, next) => {
-        const { _id } = req.body;
+        const { _id } = req.params;
         Wilder.deleteOne({ _id })
             .then((result) => {
                 if (result.deletedCount === 0){

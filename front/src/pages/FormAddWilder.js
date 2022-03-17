@@ -1,187 +1,67 @@
-import { useForm, useFieldArray } from "react-hook-form";
-import { useParams, useNavigate } from "react-router-dom";
-import { wildersRequest } from "../requests/wilders";
-import { useEffect, useState } from "react";
-import { ImCheckmark2, ImCross, ImPlus } from "react-icons/im";
-// import BackButton from "./BackButton";
-// import PopInfo from "./PopInfo";
-// import ModalAddSkill from "./ModalAddSkill";
-// import { notify } from "react-notify-toast";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import {wildersRequest} from "../requests/wilders";
+import { ImPlus, ImCross } from "react-icons/im";
+import BackButton from "../components/BackButton";
 
-const AddWilder = () => {
-  const { wilderId, editing } = useParams();
+export default function FormAddWilder() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const navigate = useNavigate();
-  const [wilderData, setWilderData] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [modal, setModal] = useState(false);
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-  const {
-    control,
-    register,
-    handleSubmit,
-    setValue,
+  const onSubmit = ({ name, city, title, votes }) => {
+          try {
+              wildersRequest.create({ name, city, skills: { title, votes } });
+              navigate('/');
+          } catch (err) {
+              console.log(err);
+          }
+      };
 
-    formState: { errors },
-  } = useForm();
+  const [formSkills, setFormSkills] = useState([{ skills: { title: "", votes:"" }}])
 
-  const { fields, append, update } = useFieldArray({
-    control,
-    name: "skills",
-  });
+  let handleChange = (i, e) => {
+    let newFormValues = [...formSkills];
+    newFormValues[i][e.target.skills.title] = e.target.skills.value;
+    setFormSkills(newFormValues);
+ }
+    
+let addFormFields = () => {
+    setFormSkills([...formSkills,{ skills: { title: "", votes: "" }}])
+ }
 
-  useEffect(() => {
-    const findWilder = async () => {
-      const wilder = await wildersRequest.find(wilderId);
-      !wilder.data.success && navigate("/404");
+let removeFormFields = (i) => {
+    let newFormValues = [...formSkills];
+    newFormValues.splice(i, 1);
+    setFormSkills(newFormValues)
+}
 
-      setLoading(false);
-      setWilderData(wilder.data.result);
-    };
-
-    if (editing !== '0') {
-      findWilder();
-    } else {
-      setLoading(false);
-    }
-  }, [navigate, wilderId, editing]);
-
-  useEffect(() => {
-    const { name, city } = wilderData;
-    setValue("name", name);
-    setValue("city", city);
-    wilderData.skills?.map((skill) => {
-      return !fields.find((e) => e._id === skill._id) && append(skill);
-    });
-  }, [wilderData, append, fields, setValue]);
-
-  const onSubmit = async (data) => {
-    let updateWilder;
-    if (editing !== '0') {
-      updateWilder = await wildersRequest.update({ _id: wilderId, ...data });
-    } else {
-      updateWilder = await wildersRequest.create(data);
-    }
-    if (updateWilder.data.success) {
-      if (editing !== '0') {
-        console.log("Wilder édité avec succès!");
-      } else {
-        console.log("Le wilder a été créé avec succès!");
-        navigate(`/wilder/instance/1/${updateWilder.data.result._id}`);
-      }
-    } else {
-      console.log(`Une erreur s'est produite : ${updateWilder.data.result}`);
-    }
-    // if (updateWilder.data.success) {
-    //   if (editing !== '0') {
-    //     notify.show("Wilder édité avec succès!");
-    //   } else {
-    //     notify.show("Le wilder a été créé avec succès!");
-    //     navigate(`/wilder/instance/1/${updateWilder.data.result._id}`);
-    //   }
-    // } else {
-    //   notify.show(`Une erreur s'est produite : ${updateWilder.data.result}`);
-    // }
-  };
-  const removeSkill = (skillId) => {
-    setWilderData((wilderData) => {
-      let newSkillsList = wilderData.skills.filter((e) => e._id !== skillId);
-      setValue("skills", newSkillsList);
-      return { ...wilderData, skills: newSkillsList };
-    });
-  };
-  const addSkill = (skill) => {
-    delete skill["_id"];
-    let index = fields.findIndex((e) => e.title === skill.title);
-    index !== -1 ? update(index, skill) : append(skill);
-    toggleModal();
-  };
-  // loading && <PopInfo message="Récupération des données en cours" />;
 
   return (
     <div>
-      {/* <BackButton /> */}
+      <BackButton />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>
-            Nom du wilder
-          </label>
-          <input
-            type="text"
-            aria-invalid={errors.name ? "true" : "false"}
-            {...register("name", { required: true })}/>
-          {errors.name && (
-            <span>
-              Ce champs est obligatoire!
-            </span>
-          )}
-        </div>
-        <div>
-          <label
-            htmlFor="base-input"
-          >
-            Ville du Wilder
-          </label>
-          <input
-            type="text"
-            {...register("city")}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="skills-list"
-          >
-            Skills du Wilder
-            <button
-              onClick={toggleModal}
-              type="button"
-            >
-              <ImPlus />
-            </button>
-          </label>
-          <div
-            name="skills-list"
-          >
-            {fields.length ? (
-              fields.map((field, index) => (
-                <div
-                  key={index}
-                  onClick={() => removeSkill(field._id)}
-                >
-                  <span>
-                    {field.title}
-                    <button
-                      type="button"
-                      {...register(`skills.${index}.title`)}
-                    >
-                      <ImCross />
-                    </button>
-                  </span>
-                </div>
-              ))
-            ) : (
-              <div>
-                <p>Aucun skills pour ce wilder...</p>
-              </div>
-              // <PopInfo
-              //   className="mx-auto"
-              //   message="Aucun skills pour ce wilder"
-              // />
-            )}
+        <input type="text" {...register("name", {required: true} )} placeholder="Nom"/>
+        {errors.name && "Il manque le nom le sang"}
+        <input {...register("city", {required: true})} placeholder="Ville"/>
+        {errors.city && "Et la ville? Non?"}
+        {formSkills.map((skill, index) => (
+          <div key={index}>
+            <input type="text"  {...register("title")} onChange={e => handleChange(index, e)} placeholder="Compétence"/>
+            <input type="text" {...register("votes")} onChange={e => handleChange(index, e)} placeholder="Note"/>
+            {
+                index ? 
+                  <button type="button" onClick={() => removeFormFields(index)}><ImCross /></button> 
+                : null
+            }
           </div>
-        </div>
-
-        <button
-          type="submit"
-        >
-          <ImCheckmark2 /> Valider
+        ))}
+        <button type="button" onClick={() => addFormFields()}>
+          <ImPlus /> Ajouter une Compétence
         </button>
+        <input type="submit" />
       </form>
-      {/* {modal && <ModalAddSkill addSkill={addSkill} toggleModal={toggleModal} />} */}
     </div>
   );
-};
-
-export default AddWilder;
+}

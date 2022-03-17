@@ -1,4 +1,7 @@
-const Card = ({ id, name, city, skills }) => {
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Card = ({id, name, city, skills }) => {
     return (
         <div className="card">
             <img src="./assets/images/imgfdp.png" alt="fdp" />
@@ -24,9 +27,11 @@ const Card = ({ id, name, city, skills }) => {
                 })}
             </ul>
             <img src="./assets/images/WCS.png" alt="WCS logo" />
-            <button className="trash">
-                <i className="fas fa-trash-alt"></i>  
-            </button>
+            <Link to={`/delete/${id}`}>
+                <button className="trash">
+                    <i className="fas fa-trash-alt"></i>  
+                </button>
+            </Link>
         </div>
     )
 };
